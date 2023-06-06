@@ -13,7 +13,8 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-GsF3q3ZvR7WKC6E7QP6g0rWiMVRv/oNqsU6jvyX+sqp/LXO2ZzOjK61whVR+URsH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+        integrity="sha384-GsF3q3ZvR7WKC6E7QP6g0rWiMVRv/oNqsU6jvyX+sqp/LXO2ZzOjK61whVR+URsH" crossorigin="anonymous">
 </head>
 
 
@@ -21,20 +22,20 @@
     <div class="formbody">
         <nav class="navbar navbar-expand-md navbar-light bg-light">
 
-            <a class="navbar-brand" href=""><img src="images\logo.png" alt="Logo"></a>
+            <a class="navbar-brand" href="index.html"><img src="logo.png" alt="Logo"></a>
             <ul class="menu">
                 <li class="nav-item dropdown">
                     <a href="index.html">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="aboutus.html" >About Us</a>
+                    <a href="aboutus.html">About Us</a>
                 </li>
-             
+
                 <li class="nav-item dropdown">
                     <a href="news.html">News</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="blogarticlespg1.html">Blog</a>
+                    <a href="login.html">Blog</a>
                 </li>
             </ul>
 
@@ -61,10 +62,14 @@
             <div class="card p-5">
                 <h3 class="mb-4">Sign Up</h3>
                 <!-- <h3>Sign Up</h3> -->
-                <input type="text" placeholder="Full Name" id="nameInp" class="form-control mb-3">
+                <input type="text" placeholder="First Name" id="nameInp" class="form-control mb-3">
+                <input type="text" placeholder="Last Name" id="lnameInp" class="form-control mb-3">
                 <input type="text" placeholder="Email" id="emailInp" class="form-control mb-3">
                 <input type="password" placeholder="Password" id="passInp" class="form-control mb-3">
+                <input type="text" placeholder="Company" id="companyInp" class="form-control mb-3">
+                <input type="text" placeholder="Position" id="positionInp" class="form-control mb-3">
                 <button type="button" id="sub_btn" class="btn btn-outline-primary mb-3">Sign Up</button>
+                <a href="login.html" class="badge badge-light">Already Have an Account?</a>
             </div>
             <script type="module">
                 // Import the functions you need from the SDKs you need
@@ -94,9 +99,12 @@
 
                 sub_btn.addEventListener('click', (e) => {
 
-                    var fullname = document.getElementById('nameInp').value;
+                    var fname = document.getElementById('nameInp').value;
+                    var lname = document.getElementById('lnameInp').value;
                     var email = document.getElementById('emailInp').value;
                     var password = document.getElementById('passInp').value;
+                    var company = document.getElementById('companyInp').value;
+                    var position = document.getElementById('positionInp').value;
 
 
                     createUserWithEmailAndPassword(auth, email, password)
@@ -105,9 +113,12 @@
                             const user = userCredential.user;
                             // ...
                             set(ref(database, 'users/' + user.uid), {
-                                fullname: fullname,
+                                fname: fname,
+                                lname: lname,
                                 email: email,
-                                password: password
+                                password: password,
+                                company: company,
+                                position: position
                             })
                                 .then(() => {
                                     // Data saved successfully!
@@ -138,37 +149,36 @@
 <!-- FOOTER -->
 <footer>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 chatbot">
-                <h2>Chat with us</h2>
-                <p>We're here to answer your questions and help you with anything you need.</p>
-                <button class="btn btn-chat">Start Chatting</button>
-            </div>
-            <div class="col-md-6 contact">
-                <h2>Contact Us</h2>
-                <p>Med-Di-Dia Limited: Galway Technology Centre,
-                    <br>Mervue Business Park, Galway, Ireland
-                </p>
-                <p>Tel: +353 (0)91-704804 | Email: mdd@mddltd.com</p>
-                <br>
-                <p>Get in touch with us on social media or send us an email.</p>
-             
-                <div class="socials">
-                    <a href="https://twitter.com/MedDiDia"><img src="images/logo-twitter.svg" alt="Twitter" width="24"
-                            height="24" aria-label="Twitter" /></a>
-                    <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true"><img src="images/logo-linkedin.svg" alt="LinkedIn"
-                            width="24" height="24" aria-label="LinkedIn" /></a>
-                    <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1"><img src="images/logo-youtube.svg" alt="Youtube"
-                            width="24" height="24" aria-label="Youtube" /></a>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-md-6 chatbot">
+          <h2>Chat with us</h2>
+          <p>We're here to answer your questions and help you with anything you need.</p>
+          <button class="btn btn-chat">Start Chatting</button>
         </div>
-        <!--  <div class="row">
-        <div class="col-md-12 chatbot-icon">
-          <a href="#"><i class="fa fa-comments"></i></a>
-        </div> -->
+        <div class="col-md-6 contact">
+          <h2>Contact Us</h2>
+          <p>Med-Di-Dia Limited: Galway Technology Centre,
+            <br>Mervue Business Park, Galway, Ireland
+          </p>
+          <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
+          <br>
+          <p>Get in touch with us on social media or send us an email.</p>
+  
+          <div class="socials">
+            <a href="https://twitter.com/MedDiDia">
+              <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
+            <a href="https://www.facebook.com/search/top?q=med-di-dia">
+              <img src="logo-facebook.svg" alt="Youtube" width="24" height="24" aria-label="Facebook" /></a>
+            <a href="https://www.instagram.com/">
+              <img src="logo-instagram.png" alt="Youtube" width="24" height="24" aria-label="Instagram" /></a>
+            <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true">
+              <img src="logo-linkedin.svg" alt="LinkedIn" width="24" height="24" aria-label="LinkedIn" /></a>
+            <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1">
+              <img src="logo-youtube.svg" alt="Youtube" width="24" height="24" aria-label="Youtube" /></a>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-</footer>
+  </footer>
 
 </html>

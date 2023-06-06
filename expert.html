@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert comment</title>
+    <link rel="icon" href="E:\University\Semester 2\MS812 Project\Website Code\images\logoicon\favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<body> 
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+
+        <a class="navbar-brand" href="index.html"><img src="logo.png" alt="Logo"></a>  
+        <ul class="menu">
+            <li>
+                <a href="index.html" >Home</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="aboutus.html" >About Us</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="news.html" >News</a>
+            </li>
+            <li class="nav-item dropdown">
+                <!-- <a href="/blogarticlespg1.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a> -->
+                <a href="blogarticlespg1.html">Blog</a>
+            </li>
+        </ul>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <button class="btn btn-login" type="button" onclick="document.location='login.html'">Login</button>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-signup" type="button" onclick="document.location='signup.html'">Signup</button>
+          </li>
+        </ul>
+    </div>
+
+    </nav>
+      <!-- Link to jQuery and Bootstrap JS files, sub menu won't work without these -->
+      <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+      <!-- Toastr JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+      <!-- Firebase JS -->
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+      <!-- Firebase config -->
+      <script>
+        const config = {
+          apiKey: "AIzaSyAw-NQtTDnu5HG2nyIZlC4GLnHhG53-sVU",
+          authDomain: "medidiaproject.firebaseapp.com",
+          databaseURL: "https://medidiaproject-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "medidiaproject",
+          storageBucket: "medidiaproject.appspot.com",
+          messagingSenderId: "276942428473",
+          appId: "1:276942428473:web:fa0e53b2bbcd13291030e8",
+          measurementId: "G-QGHFEET1RG"
+        };
+        firebase.initializeApp(config);  //initialize firebase
+
+        // Get a reference to the database
+        const database = firebase.firestore();
+
+        // Function to handle the comment submission and update the 'ExpertComment' field
+        function handleSubmit(commentId) {
+            const commentInput = document.getElementById(`comment_${commentId}`);
+            const comment = commentInput.value;
+
+            updateData(commentId, comment); //call function
+        } 
+
+        // Function to handle the image url submission and update the 'Image URL' field
+        function handleSubmit2(imageId) {
+            const imageInput = document.getElementById(`image_${imageId}`);
+            const image = imageInput.value;
+
+            updateData2(imageId, image); //call function
+        } 
+
+        // Function to update the 'ExpertComment' field in Firestore
+        function updateData(commentId, comment) {
+            const docRef = database.collection('blogposts').doc(commentId);
+
+            docRef
+                .update({ ExpertComment: comment })
+                .then(() => {
+                    showToast('success', 'Blog has been successfully updated!');
+                    console.log('Blog has been successfully updated!');
+
+                    // Delay the page reload for 1 second
+                    setTimeout(() => {
+                        location.reload(); // Reload the page
+                    }, 1000);
+                })
+                .catch((error) => {
+                showToast('error', 'Error publishing the blog: ' + error);
+                console.error('Error publishing the blog:', error);
+                });
+        }
+
+        // Function to update the 'Image URL' field in Firestore
+        function updateData2(imageId, image) {
+            const docRef = database.collection('blogposts').doc(imageId);
+
+            docRef
+                .update({ ImageURL: image })
+                .then(() => {
+                    showToast('success', 'Blog has been successfully updated!');
+                    console.log('Blog has been successfully updated!');
+
+                    // Delay the page reload for 1 second
+                    setTimeout(() => {
+                        location.reload(); // Reload the page
+                    }, 1000);
+                })
+                .catch((error) => {
+                showToast('error', 'Error publishing the blog: ' + error);
+                console.error('Error publishing the blog:', error);
+                });
+            }
+
+
+        //function to display the toast message
+        function showToast(type, message) {
+          if (type === 'success') {
+            Swal.fire({
+              icon: 'success',
+              title: message,
+              toast: true,
+              position: 'mid-center',
+              showConfirmButton: false,
+              timer: 5000,
+              customClass: {
+                popup: 'my-swal-popup',
+              },
+              width: '500px', // Set the desired width
+              height: '500px', // Adjust the height 
+              titleFontSize: '50px', // Customize the title font size
+            });
+          } else if (type === 'error') {
+            Swal.fire({
+              icon: 'error',
+              title: message,
+              toast: true,
+              position: 'mid-center',
+              showConfirmButton: false,
+              timer: 5000,
+              customClass: {
+                popup: 'my-swal-popup',
+              },
+              width: '500px', // Set the desired width
+              height: '500px', // Adjust the height 
+              titleFontSize: '50px', // Customize the title font size
+            });
+          } 
+        }
+
+        //retrieve the data from firestore
+        let databse = firebase.firestore();
+        let myCollection = database.collection('blogposts');
+        myCollection.get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // Access the data of each document here
+          });
+        });
+        myCollection.get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            
+            //if expert opionion field is blank, boolean value for publish is false, and Image URL field is blank, only then will the blog post get displayed
+            if(data.ExpertComment == "" && data.publish === false && data.ImageURL == "") {
+                // Create a new grid item for each document
+                let gridItem = document.createElement('div');
+                gridItem.className = 'blog-post';
+
+                // Set the contents of the grid item
+                gridItem.innerHTML = `
+                <!--<div class="blog-thumbnail">
+                  <img src="https://fakeimg.pl/600x400" alt="Blog post thumbnail">
+                </div>-->
+                <div class="blog-content">
+                  <h4>${data.BlogName}</h4>                  
+                  <p style="font-size: 14px; color: #999; margin-top: 5px;">${data.TimeStamp}</p>
+                  <a href="${data.BlogURL}">${data.BlogURL}</a>
+                </div>
+                <div class="expert-comment">
+                  <h2>Expert Section</h2>
+                  <form>
+                    <!--<label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>-->
+
+                    <label for="image">Image URL:</label>
+                    <textarea id="image_${doc.id}" name="image_${doc.id}" required></textarea>
+
+                    <label for="comment_${doc.id}">Expert Comment:</label>
+                    <textarea id="comment_${doc.id}" name="comment_${doc.id}" required></textarea>
+
+                    <button type="button" onclick="handleSubmit('${doc.id}'); handleSubmit2('${doc.id}')" style="background-color: #FF6600;">Send for Approval</button>
+
+                  </form>
+                </div>
+                `;
+                
+                document.querySelector('.expert-container').appendChild(gridItem); // Append the 'gridItem' element to the 'expert-container' element
+            }           
+          });
+        });
+
+      </script>
+
+      <!-- CODE GOES HERE -->
+	<!-- Container for the blog posts and expert comments -->
+	<div id="expert-container" class="expert-container">
+
+		<!-- Blog post 1 -->
+		<!--<div class="blog-post">
+			<div class="blog-thumbnail">
+				<img src="https://fakeimg.pl/600x400" alt="Blog post thumbnail">
+			</div>
+			<div class="blog-content">
+				<h2>Blog Post Title</h2>
+                <p style="font-size: 14px; color: #999; margin-top: 5px;">April 6, 2023</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus, nisl at faucibus tristique, purus eros sodales ex, quis tincidunt nulla nisl quis velit.</p>
+			</div>
+			<div class="expert-comment">
+				<h2>Expert Comment</h2>
+				<form>
+					<label for="name">Name:</label>
+					<input type="text" id="name" name="name" required>
+
+					<label for="email">Email:</label>
+					<input type="email" id="email" name="email" required>
+
+					<label for="comment">Comment:</label>
+					<textarea id="comment" name="comment" required></textarea>
+
+					<input type="submit" value="Publish">
+				</form>
+			</div>
+		</div>-->
+	</div>
+
+</body>
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 chatbot">
+            <h2>Chat with us</h2>
+            <p>We're here to answer your questions and help you with anything you need.</p>
+            <button class="btn btn-chat">Start Chatting</button>
+          </div>
+          <div class="col-md-6 contact">
+            <h2>Contact Us</h2>
+            <p>Med-Di-Dia Limited: Galway Technology Centre,
+              <br>Mervue Business Park, Galway, Ireland
+            </p>
+            <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
+            <br>
+            <p>Get in touch with us on social media or send us an email.</p>
+    
+            <div class="socials">
+              <a href="https://twitter.com/MedDiDia">
+                <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
+              <a href="https://www.facebook.com/search/top?q=med-di-dia">
+                <img src="logo-facebook.svg" alt="Youtube" width="24" height="24" aria-label="Facebook" /></a>
+              <a href="https://www.instagram.com/">
+                <img src="logo-instagram.png" alt="Youtube" width="24" height="24" aria-label="Instagram" /></a>
+              <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true">
+                <img src="logo-linkedin.svg" alt="LinkedIn" width="24" height="24" aria-label="LinkedIn" /></a>
+              <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1">
+                <img src="logo-youtube.svg" alt="Youtube" width="24" height="24" aria-label="Youtube" /></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer> 
+</html>

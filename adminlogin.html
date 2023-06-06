@@ -20,24 +20,24 @@
 </head>
 
 <body>
-    <div class="formbody with-background">
+    <div class="formbody">
         <nav class="navbar navbar-expand-md navbar-light bg-light">
 
             <a class="navbar-brand" href="index.html"><img src="logo.png" alt="Logo"></a>
             <ul class="menu">
                 <li class="nav-item dropdown">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html">Home</a>
 
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="aboutus.html" class="nav-link">About Us</a>
+                    <a href="aboutus.html">About Us</a>
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a href="news.html" class="nav-link">News</a>
+                    <a href="news.html">News</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="login.html" class="nav-link active">Blog</a>
+                    <a href="login.html">Blog</a>
                 </li>
             </ul>
 
@@ -54,7 +54,6 @@
                     <li class="nav-item">
                         <button class="btn btn-signup" type="button"
                             onclick="document.location='signup.html'">Signup</button>
-
                     </li>
                 </ul>
             </div>
@@ -64,31 +63,30 @@
 
         <div class="loginform">
             <div class="card p-5">
-                <h3 class="mb-4">Login</h3>
+                <h3 class="mb-4">Admin Login</h3>
                 <input type="text" placeholder="Email" id="loginEmail" class="form-control mb-3">
                 <input type="password" placeholder="Password" id="loginPass" class="form-control mb-3">
                 <button type="button" id="loginbtn" class="btn btn-outline-primary mb-3">Login</button>
-                <a href="signup.html" class="badge badge-light">Create Account</a>
             </div>
             <script type="module">
+
                 // Import the functions you need from the SDKs you need
-                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-                import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
-                import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+                import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+                import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
 
                 // TODO: Add SDKs for Firebase products that you want to use
                 // https://firebase.google.com/docs/web/setup#available-libraries
 
                 // Your web app's Firebase configuration
                 const firebaseConfig = {
-                    apiKey: "AIzaSyAw-NQtTDnu5HG2nyIZlC4GLnHhG53-sVU",
-                    authDomain: "medidiaproject.firebaseapp.com",
-                    databaseURL: "https://medidiaproject-default-rtdb.europe-west1.firebasedatabase.app",
-                    projectId: "medidiaproject",
-                    storageBucket: "medidiaproject.appspot.com",
-                    messagingSenderId: "276942428473",
-                    appId: "1:276942428473:web:fa0e53b2bbcd13291030e8",
-                    measurementId: "G-QGHFEET1RG"
+                    apiKey: "AIzaSyD1u_TPCOwtfAqKztRaGjV6ADsONGtlUjA",
+                    authDomain: "admin-999dc.firebaseapp.com",
+                    databaseURL: "https://admin-999dc-default-rtdb.firebaseio.com",
+                    projectId: "admin-999dc",
+                    storageBucket: "admin-999dc.appspot.com",
+                    messagingSenderId: "26433090038",
+                    appId: "1:26433090038:web:d7b9213c6ee90348d457d7"
                 };
 
                 // Initialize Firebase
@@ -99,7 +97,7 @@
                 // Get the reference to the login button
                 const loginBtn = document.getElementById('loginbtn');
 
-                loginbtn.addEventListener('click', (e) => {
+                loginBtn.addEventListener('click', (e) => {
 
                     var lemail = document.getElementById('loginEmail').value;
                     var lpassword = document.getElementById('loginPass').value;
@@ -110,18 +108,18 @@
                             const user = userCredential.user;
                             // ...
                             var login_date = new Date();
-                            update(ref(database, 'users/' + user.uid), {
+                            update(ref(database, 'admin/' + user.uid), {
                                 last_login: login_date,
                             })
                                 .then(() => {
                                     // Data saved successfully!
-                                    console.log('Login successful');
-                                    window.location.href = 'blogarticlespg1.html'; // Redirect to blogs page
+                                    console.log('Admin Login Successful');
+                                    window.location.href = 'admin.html'; // Redirect to logout.html
 
                                 })
                                 .catch((error) => {
                                     // The write failed...
-                                    alert(error);
+                                    alert("Admin Login Error:", error);
                                 });
                         })
                         .catch((error) => {
@@ -134,6 +132,8 @@
                 });
             </script>
         </div>
+
+
     </div>
 </body>
 <!-- FOOTER -->
@@ -153,7 +153,7 @@
           <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
           <br>
           <p>Get in touch with us on social media or send us an email.</p>
-
+  
           <div class="socials">
             <a href="https://twitter.com/MedDiDia">
               <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
@@ -169,6 +169,6 @@
         </div>
       </div>
     </div>
-</footer>
+  </footer>
 
 </html>
