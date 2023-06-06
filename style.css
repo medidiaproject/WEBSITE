@@ -1,345 +1,450 @@
 /* Navbar */
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 999;
-}
-
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+  }
 .navbar-brand {
-  margin-right: 50px;
-}
+    margin-right: 50px;
+  }
 
+.nav-link.active {
+    font-weight: bold;
+    background-color: #ff671e;
+    border-radius: 10px; 
+    /*padding: 5px 10px;*/ 
+    text-decoration: none;
+    border-bottom: 2px solid #FF6600; /* Replace with your desired color */
+  }
+  
 /* List Menu */
 .menu {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu li {
-  margin-right: 75px;
-}
-
-.menu li:last-child {
-  margin-right: 0;
-}
-
-.menu a {
-  color: #333;
-  text-decoration: none;
-  text-transform: uppercase;
-  padding-bottom: 5px;
-  border-bottom: 2px solid transparent;
-}
-
-.menu a:hover {
-  border-bottom-color: #333;
-}
-
-/* Submenu styles */
-
-.submenu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 200px;
-  padding: 10px 0;
-  background-color: #fff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.submenu li {
-  margin: 0;
-}
-
-.submenu a {
-  display: block;
-  padding: 10px 20px;
-  font-size: 14px;
-}
-
-.submenu a:hover {
-  background-color: #f5f5f5;
-}
-
-/* Submenu show on hover */
-
-.menu li:hover .submenu {
-  display: block;
-}
-
-/* Default button styles */
-.btn {
-  background-color: #FF6600;
-  /* #FF6600 background color */
-  border: none;
-  color: #FFF;
-  /* White text color */
-  padding: 10px 20px;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  border-radius: 5px;
-  transition: background-color 0.3s ease-in-out;
-  /* Add transition effect to background-color */
-}
-
-/* Inverted colors on hover */
-.btn:hover {
-  background-color: #000;
-  /* Black background color */
-  color: #FF6600;
-  /* #FF6600 text color */
-}
-
-/* Login button styles */
-.btn-login {
-  background-color: #000;
-  /* Black background color */
-}
-
-/* Inverted colors on hover */
-.btn-login:hover {
-  background-color: #FF6600;
-  /* Orange background color */
-  color: #000;
-  /* Black text color */
-}
-
-/* Signup button styles */
-.btn-signup {
-  background-color: #FF6600;
-  /* Orange background color */
-}
-
-/* Inverted colors on hover */
-.btn-signup:hover {
-  background-color: #000;
-  /* Black background color */
-  color: #FF6600;
-  /* Orange text color */
-}
-
-
-/* Responsive styles */
-
-@media screen and (max-width: 768px) {
-  .menu {
-    flex-wrap: wrap;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
-
+  
   .menu li {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
+    margin-right: 75px;
   }
-
+  
   .menu li:last-child {
-    margin-bottom: 0;
-  }
-
-  .submenu {
-    position: static;
-    width: auto;
-    display: none;
-  }
-
-  .submenu li {
-    display: inline-block;
-    margin-right: 10px;
-  }
-
-  .submenu li:last-child {
     margin-right: 0;
   }
-
-  .submenu a {
-    padding: 5px 10px;
-    font-size: 12px;
+  
+  .menu a {
+    color: #333;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
   }
-}
+  
+  .menu a:hover {
+    border-bottom-color: #333;
+  }
+  
+  /* Submenu styles */
+  
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    padding: 10px 0;
+    background-color: #fff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .submenu li {
+    margin: 0;
+  }
+  
+  .submenu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .submenu a:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Submenu show on hover */
+  
+  .menu li:hover .submenu {
+    display: block;
+  }
 
-/* Carousel */
+  /* Default button styles */
+.btn {
+    background-color: #FF6600; /* #FF6600 background color */
+    border: none;
+    color: #FFF; /* White text color */
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out; /* Add transition effect to background-color */
+  }
+  
+  /* Inverted colors on hover */
+  .btn:hover {
+    background-color: #000; /* Black background color */
+    color: #FF6600; /* #FF6600 text color */
+  }
+  
+  /* Login button styles */
+  .btn-login {
+    background-color: #000; /* Black background color */
+  }
+  
+  /* Inverted colors on hover */
+  .btn-login:hover {
+    background-color: #FF6600; /* Orange background color */
+    color: #000; /* Black text color */
+  }
+  
+  /* Signup button styles */
+  .btn-signup {
+    background-color: #FF6600; /* Orange background color */
+  }
+  
+  /* Inverted colors on hover */
+  .btn-signup:hover {
+    background-color: #000; /* Black background color */
+    color: #FF6600; /* Orange text color */
+  }
+
+  /* Already have an account / Create Account*/
+  a.badge.badge-light {
+    padding-block: 10px;
+  }
+  
+  /* Already have an account / Create Account Hover */
+  a.badge.badge-light:hover { 
+   
+    background-color: black;
+    padding-block: 10px;
+    color: #FF6600;
+    display: inline-block;
+  }
+
+  /* Login Form */
+  
+  .loginform {
+    max-width: 400px; /* Adjust the maximum width as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Adjust the border radius as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow */
+    transform: translateZ(0); /* Apply the 3D effect */
+  }
+
+  /* Login Form Background */
+
+  .formbody::before,
+  .formbody::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      bottom: 0;
+      width: 40%;
+      background-repeat: no-repeat;
+      background-size: contain;
+      box-sizing: border-box;
+  }
+  
+  .formbody::before {
+      left: 0;
+      background-image: url(loginimgleft.jpg);
+      background-position: left;
+      background-size: 85% auto;
+      z-index: -1;
+  }
+  
+  .formbody::after {
+      right: 0;
+      background-image: url(loginimgright.jpg);
+      background-position: right;
+      background-size: 70% auto;
+      z-index: -1;
+  }
+  
+  
+  /* Responsive styles */
+  
+  @media screen and (max-width: 768px) {
+    .menu {
+      flex-wrap: wrap;
+    }
+    
+    .menu li {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    
+    .menu li:last-child {
+      margin-bottom: 0;
+    }
+    
+    .submenu {
+      position: static;
+      width: auto;
+      display: none;
+    }
+    
+    .submenu li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+    
+    .submenu li:last-child {
+      margin-right: 0;
+    }
+    
+    .submenu a {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+  }
+
+  /* Carousel */
 /* Custom styles for arrow icons */
 .carousel-control-prev-icon {
-  background-image: url('white-left-arrow.png');
-}
+    background-image: url('white-left-arrow.png');
+  }
+  .carousel-control-next-icon {
+    background-image: url('white-right-arrow.png');
+  }
+  /* Hide the default Bootstrap arrow icons */
+  .carousel-control-prev,
+  .carousel-control-next {
+    background-image: none;
+  }
+  
+  /* Set the carousel width and height to the same dimensions as the images */
+  .carousel-inner img {
+    width: 100%;
+    height: auto;
+  }
+  .carousel-inner {
+    width: 100%;
+    height: auto;
+  }
+  
 
-.carousel-control-next-icon {
-  background-image: url('white-right-arrow.png');
-}
+ /* Footer */
+  footer {
+    background-color: black;
+    color: white;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-/* Hide the default Bootstrap arrow icons */
-.carousel-control-prev,
-.carousel-control-next {
-  background-image: none;
-}
-
-/* Set the carousel width and height to the same dimensions as the images */
-.carousel-inner img {
-  width: 100%;
-  height: auto;
-}
-
-.carousel-inner {
-  width: 100%;
-  height: auto;
-}
-
-
-/* Footer */
-footer {
-  background-color: black;
-  color: white;
-  padding: 0px 0;
-  height: auto;
-  width: 100%;
-}
-
-.btn-chat {
-  background-color: #FF6600;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.btn-chat:hover {
-  background-color: black;
-  color: #FF6600;
-}
-
-footer h2 {
-  font-size: 1.5rem;
-}
-
-footer p {
-  font-size: 1rem;
-}
-
-footer a {
-  color: #FF6600;
-}
-
-footer .chatbot {
-  padding-right: 100px;
-}
-
-footer .contact {
-  text-align: right;
-  padding-left: 100px;
-}
-
-/*  footer .list-inline-item {
-    margin-right: 10px; 
-}
-*/
-
-footer .social-icons {
-  display: flex;
-  justify-content: flex-end;
-}
-
-footer .social-icons a {
-  color: #FFFFFF;
-  margin-left: 20px;
-  font-size: 24px;
-  transition: color 0.3s;
-}
-
-footer .social-icons a:hover {
-  color: #FFA500;
-}
-
-
-
-.socials {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.socials a {
-  display: inline-block;
-  margin: 0 10px;
-  background-color: black;
-  padding: 10px;
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
-
-.socials a:hover {
-  transform: scale(1.1);
-}
-
-.socials a img {
-  width: 24px;
-  height: 24px;
-  filter: invert(1);
-}
-
-footer .chatbot-icon {
-  position: fixed;
-  bottom: 50px;
-  left: 50px;
-  background-color: #FF6600;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-footer .chatbot-icon a {
-  color: white;
-  font-size: 2rem;
-}
-
-@media (max-width: 768px) {
+  .btn-chat {
+    background-color: #FF6600;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-chat:hover {
+    background-color: black;
+    color: #FF6600;
+  }
+  
+  footer h2 {
+    font-size: 1.5rem;
+  }
+  
+  footer p {
+    font-size: 1rem;
+  }
+  
+  footer a {
+    color: #FF6600;
+  }
+  
   footer .chatbot {
-    padding-right: 0;
+    padding-right: 100px;
   }
-
+  
   footer .contact {
-    padding-left: 0;
+    text-align: right;
+    padding-left: 10px;
   }
-}
+  
+ /*  footer .list-inline-item {
+    margin-right: 10px; */
+  
+  footer .social-icons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  footer .social-icons a {
+    color: #FFFFFF;
+    margin-left: 20px;
+    font-size: 24px;
+    transition: color 0.3s;
+  }
+  
+  footer .social-icons a:hover {
+    color: #FFA500;
+  }
+  
+  footer .chatbot-icon {
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    background-color: #FF6600;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  footer .chatbot-icon a {
+    color: white;
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    footer .chatbot {
+      padding-right: 0;
+    }
+  
+    footer .contact {
+      padding-left: 0;
+    }
+  }
+  /* ---------------------BLOGS--------------------- */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .blog-post {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  
+  .blog-img img {
+    width: 50px;
+    height: auto;
+  }
+  
+  .blog-text {
+    margin-top: 20px;
+  }
+  
+  .blog-text h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .blog-text p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  .expert-opinion {
+    background-color: #ddd;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  
+  .expert-opinion p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+  
+  /* BLOG ARTICLES */
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    
+  }
+  
+  .grid-item {
+    border: 1px solid black;
+    padding: 20px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3), -2px -2px 6px rgba(255,255,255,0.7);
+  }
+  
+  .expert-opinion {
+    margin-top: 20px;
+    border: 1px solid gray;
+    padding: 10px;
+    max-height: 200px; /* Adjust the maximum height as needed */
+    overflow-y: scroll;
+  }
+  
+  .page-numbers {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .page-numbers a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .page-numbers a:hover {
+    background-color: #FF6600;
+    color: white;
+  }
 
+  .page-numbers a.active {
+    background-color: #FF6600;
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 
+  .skip-buttons {
+    display: inline-block;
+  }
+  
+  .skip-buttons:first-of-type {
+    float: left;
+  }
 
-/* .grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.grid-item {
-  border: 1px solid black;
-  padding: 10px;
-} */
-
-.grid-item {
-  border-bottom: 2px solid #1c1c1c;
-}
-
-
-.menu li {
-  margin-right: 160px;
-}
-.menu {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar {
-  background-color: blue;
-}
+  .welcome-message {
+    display: inline-block;
+    border: 2.5px solid black;
+    background-color: lightblue;
+    padding: 10px;
+    font-weight: bold;
+    margin-right: 10px;
+    font-style: italic;
+  }

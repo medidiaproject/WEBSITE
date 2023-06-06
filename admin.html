@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Comment</title>
+  <link rel="icon" href="favicon.ico">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="style2.css">
+  <!-- Toastr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.all.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+
+    <a class="navbar-brand" href="index.html"><img src="logo.png" alt="Logo"></a>
+    <ul class="menu">
+      <li>
+        <a href="index.html">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="aboutus.html">About Us</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="news.html">News</a>
+      </li>
+      <li class="nav-item dropdown">
+        <!-- <a href="/blogarticlespg1.html" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a> -->
+        <a href="login.html">Blog</a>
+      </li>
+    </ul>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <span id="userName" style="color: black; font-weight: bold; font-style: italic;"></span>
+          <button class="btn btn-signout" type="button" id="signoutButton">Sign Out</button>
+        </li>
+      </ul>
+    </div>
+
+  </nav>
+
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+    import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD1u_TPCOwtfAqKztRaGjV6ADsONGtlUjA",
+      authDomain: "admin-999dc.firebaseapp.com",
+      databaseURL: "https://admin-999dc-default-rtdb.firebaseio.com",
+      projectId: "admin-999dc",
+      storageBucket: "admin-999dc.appspot.com",
+      messagingSenderId: "26433090038",
+      appId: "1:26433090038:web:d7b9213c6ee90348d457d7"
+    };
+
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const database1 = getDatabase(app);
+
+    // Get the signout button element
+    const signoutBtn = document.getElementById('signoutButton');
+
+    // Add signout event listener
+    signoutBtn.addEventListener('click', (e) => {
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('User signed out');
+        //alert('User Signed Out.');
+        window.location.href = 'index.html'; // Redirect to homepage
+      }).catch((error) => {
+        // An error happened.
+        console.log('Sign out error:', error);
+      });
+    });
+
+
+    // Get the currently signed-in user's information
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // User is not signed in, redirect to adminlogin.html
+        window.location.href = 'adminlogin.html';
+      } else {
+        const userNameElement = document.getElementById('userName');
+        userNameElement.textContent = "Welcome Admin!";
+        const userId = user.uid;
+      }
+    });
+
+  </script>
+  <!-- Toast container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Link to jQuery and Bootstrap JS files, sub menu won't work without these -->
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+  <!-- Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+  <!-- Firebase JS -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Firebase Config -->
+  <script>
+    const config = {
+      apiKey: "AIzaSyAw-NQtTDnu5HG2nyIZlC4GLnHhG53-sVU",
+      authDomain: "medidiaproject.firebaseapp.com",
+      databaseURL: "https://medidiaproject-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "medidiaproject",
+      storageBucket: "medidiaproject.appspot.com",
+      messagingSenderId: "276942428473",
+      appId: "1:276942428473:web:fa0e53b2bbcd13291030e8",
+      measurementId: "G-QGHFEET1RG"
+    };
+    firebase.initializeApp(config); //initialize firebase
+
+    // Get a reference to the database
+    const database = firebase.firestore();
+
+    // Function to update the 'publish' field of a document
+    function updateData(blogid) {
+      const docRef = database.collection('blogposts').doc(blogid);
+
+      docRef.get().then((doc) => {
+        doc.ref.update({ publish: true })
+          .then(() => {
+            showToast('success', 'Blog has been successfully published!');
+            console.log('Blog has been successfully published!');
+            // Delay the page reload for 1 second
+            setTimeout(() => {
+              location.reload(); // Reload the page
+            }, 1000);
+          })
+          .catch((error) => {
+            showToast('error', 'Error publishing the blog: ' + error);
+            console.error('Error publishing the blog:', error);
+          });
+      });
+    }
+
+    // Function to delete the 'ExpertComment' field of a document
+    function deleteData(blogid) {
+      const docRef = database.collection('blogposts').doc(blogid);
+
+      docRef.get().then((doc) => {
+        doc.ref.update({ ExpertComment: "", ImageURL: "" })
+          .then(() => {
+            showToast('warning', 'Blog has been disapproved and sent for revaluation!');
+            console.log('Blog has been disapproved and sent for revaluation!');
+            // Delay the page reload for 1 second
+            setTimeout(() => {
+              location.reload(); // Reload the page
+            }, 1000);
+          })
+          .catch((error) => {
+            showToast('error', 'Error deleting the expert comment: ' + error);
+            console.error('Error deleting the expert comment:', error);
+          });
+      });
+    }
+
+    //function to display the toast message
+    function showToast(type, message) {
+      if (type === 'success') {
+        Swal.fire({
+          icon: 'success',
+          title: message,
+          toast: true,
+          position: 'mid-center',
+          showConfirmButton: false,
+          timer: 5000,
+          customClass: {
+            popup: 'my-swal-popup',
+          },
+          width: '500px', // Set the desired width
+          height: '500px', // Adjust the height 
+          titleFontSize: '50px', // Customize the title font size
+        });
+      } else if (type === 'error') {
+        Swal.fire({
+          icon: 'error',
+          title: message,
+          toast: true,
+          position: 'mid-center',
+          showConfirmButton: false,
+          timer: 5000,
+          customClass: {
+            popup: 'my-swal-popup',
+          },
+          width: '500px', // Set the desired width
+          height: '500px', // Adjust the height
+          titleFontSize: '50px', // Customize the title font size
+        });
+      } else if (type === 'warning') {
+        Swal.fire({
+          icon: 'warning',
+          title: message,
+          toast: true,
+          position: 'mid-center',
+          showConfirmButton: false,
+          timer: 5000,
+          customClass: {
+            popup: 'my-swal-popup',
+          },
+          width: '500px', // Set the desired width
+          height: '500px', // Adjust the height 
+          titleFontSize: '50px', // Customize the title font size
+        });
+      }
+    }
+
+    //retrieve the data from firestore
+    let myCollection = database.collection('blogposts');
+    myCollection.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        // Access the data of each document here
+      });
+    });
+    myCollection.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        let data = doc.data();
+
+        //expert opionion field may or may not be blank, boolean value for publish must be false, and Image URL field may or may not be blank
+        if ((data.ExpertComment != "" && data.publish === false && data.ImageURL != "") || (data.ExpertComment == "" && data.publish === false && data.ImageURL != "") || (data.ExpertComment != "" && data.publish === false && data.ImageURL == "")) {
+          // Create a new grid item for each document
+          let gridItem = document.createElement('div');
+          gridItem.className = 'blog-post';
+
+          // Set the contents of the grid item
+          gridItem.innerHTML = `
+                <div class="blog-thumbnail">
+                  <img src=${data.ImageURL} alt="Image not available">
+                </div>
+                <div class="blog-content">
+                  <h4>${data.BlogName}</h4>                  
+                  <p style="font-size: 14px; color: #999; margin-top: 5px;">${data.TimeStamp}</p>
+                  <a href="${data.BlogURL}">${data.BlogURL}</a>
+                </div>
+                <div class="expert-comment">
+                  <h2>Expert Comment</h2>
+                  <div class="admin-expert-text-block">
+                    <p>${data.ExpertComment}</p>
+                  </div>
+                  <div class="admin-buttons">
+                    <button onclick="updateData('${doc.id}')" style="background-color: #FF6600;">Publish</button>
+                    <button onclick="deleteData('${doc.id}')" style="background-color: black;">Decline</button>
+                  </div>
+                </div>
+                `;
+          document.querySelector('.expert-container').appendChild(gridItem); // Append the 'gridItem' element to the 'expert-container' element
+
+        }
+
+
+
+
+      });
+    });
+
+  </script>
+  <!-- CODE GOES HERE -->
+  <!-- Container for the blog posts and expert comments -->
+  <div class="expert-container" id="expert-container">
+
+    <!-- Blog post 1 -->
+    <!--<div class="blog-post">
+            <div class="blog-thumbnail">
+              <img src="https://fakeimg.pl/600x400" alt="Blog post thumbnail">
+            </div>
+            <div class="blog-content">
+              <h2>Blog Post Title</h2>
+              <p style="font-size: 14px; color: #999; margin-top: 5px;">April 6, 2023</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus, nisl at faucibus tristique, 
+                purus eros sodales ex, quis tincidunt nulla nisl quis velit.</p>
+            </div>
+            <div class="expert-comment">
+              <h2>Expert Comment</h2>
+              <div class="admin-expert-text-block">
+                <p>This is a sample paragraph of text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus, nisl at 
+                    faucibus tristique, purus eros sodales ex, quis tincidunt nulla nisl quis veli</p>
+              </div>
+              <div class="admin-buttons">
+                <button style="background-color: #FF6600;">Publish</button>
+                <button style="background-color: black;">Delete</button>
+              </div>
+            </div>
+        </div>-->
+  </div>
+
+
+
+</body>
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 chatbot">
+        <h2>Chat with us</h2>
+        <p>We're here to answer your questions and help you with anything you need.</p>
+        <button class="btn btn-chat">Start Chatting</button>
+      </div>
+      <div class="col-md-6 contact">
+        <h2>Contact Us</h2>
+        <p>Med-Di-Dia Limited: Galway Technology Centre,
+          <br>Mervue Business Park, Galway, Ireland
+        </p>
+        <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
+        <br>
+        <p>Get in touch with us on social media or send us an email.</p>
+
+        <div class="socials">
+          <a href="https://twitter.com/MedDiDia">
+            <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
+          <a href="https://www.facebook.com/search/top?q=med-di-dia">
+            <img src="logo-facebook.svg" alt="Youtube" width="24" height="24" aria-label="Facebook" /></a>
+          <a href="https://www.instagram.com/">
+            <img src="logo-instagram.png" alt="Youtube" width="24" height="24" aria-label="Instagram" /></a>
+          <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true">
+            <img src="logo-linkedin.svg" alt="LinkedIn" width="24" height="24" aria-label="LinkedIn" /></a>
+          <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1">
+            <img src="logo-youtube.svg" alt="Youtube" width="24" height="24" aria-label="Youtube" /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</html>

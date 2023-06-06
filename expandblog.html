@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expand Blog</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="index.html"><img src="images\logo.png" alt="Logo"></a>  
+    <ul class="menu">
+        <li>
+            <a href="index.html" >Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="aboutus.html" >About Us</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="news.html" >News</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a href="blogarticlespg1.html">Blog</a>
+        </li>
+    </ul>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+          <span id="userName" style="color: black; font-weight: bold;"></span>
+          <button class="btn btn-signout" type="button" id="signoutButton">Sign Out</button>
+        </li>
+        </ul>
+      </div>
+  </nav>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+    import { getDatabase, set, ref, update, get } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAw-NQtTDnu5HG2nyIZlC4GLnHhG53-sVU",
+      authDomain: "medidiaproject.firebaseapp.com",
+      databaseURL: "https://medidiaproject-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "medidiaproject",
+      storageBucket: "medidiaproject.appspot.com",
+      messagingSenderId: "276942428473",
+      appId: "1:276942428473:web:fa0e53b2bbcd13291030e8",
+      measurementId: "G-QGHFEET1RG"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const database1 = getDatabase(app);
+
+    // Get the signout button element
+    const signoutBtn = document.getElementById('signoutButton');
+
+    // Add signout event listener
+    signoutBtn.addEventListener('click', (e) => {
+      signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('User signed out');
+        //alert('User Signed Out.');
+        window.location.href = 'index.html'; // Redirect to homepage
+      }).catch((error) => {
+        // An error happened.
+        console.log('Sign out error:', error);
+      });
+    });
+
+
+    // Get the currently signed-in user's information
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userNameElement = document.getElementById('userName');
+        const userId = user.uid;
+
+        // Retrieve the user's display name from the database
+        const userRef = ref(database1, `users/${userId}/fname`);
+        get(userRef).then((snapshot) => {
+          const fullname = snapshot.val() || "";
+          //userNameElement.textContent = "Welcome " + fullname;
+          userNameElement.innerHTML = '<span class="welcome-message">Welcome ' + fullname + '</span>';
+
+          // Call the function to populate the blog articles when the user is signed in
+          populateBlogArticles();
+        });
+      } else {
+        // User is not signed in, redirect to the login page
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+
+  <!-- Link to jQuery and Bootstrap JS files -->
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+  <!--Firebase js-->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  <!-- Blog Section -->
+<section id="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 id="blogTitle"></h2>
+        <p id="blogDate"></p>
+        <img src="1.png" alt="Blog Photo" id="blogImage" class="blog-photo">
+        <h2>Expert's Opinion</h2>
+        <div id="blogComment"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Contact Form Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <h2>Contact Details</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+            </div>
+            <div class="form-group">
+              <label for="organizationName">Organization Name</label>
+              <input type="text" class="form-control" id="organizationName" placeholder="Enter your organization name" required>
+            </div>
+            <div class="form-group">
+              <label for="jobTitle">Job Title</label>
+              <input type="text" class="form-control" id="jobTitle" placeholder="Enter your job title" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--firebase config-->
+<script>
+  const config = {
+          apiKey: "AIzaSyAw-NQtTDnu5HG2nyIZlC4GLnHhG53-sVU",
+          authDomain: "medidiaproject.firebaseapp.com",
+          databaseURL: "https://medidiaproject-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "medidiaproject",
+          storageBucket: "medidiaproject.appspot.com",
+          messagingSenderId: "276942428473",
+          appId: "1:276942428473:web:fa0e53b2bbcd13291030e8",
+          measurementId: "G-QGHFEET1RG"
+        };
+        firebase.initializeApp(config); //initialize firebase
+
+        // Get the blog ID from the query parameter in the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const blogId = urlParams.get('blogId');
+
+        //get reference to the database
+        const db = firebase.firestore();
+
+        // Create a reference to the document with ID 'blogId' in the 'blogposts' collection
+        const blogRef = db.collection('blogposts').doc(blogId);
+
+        // Retrieve data from the Firestore document referenced by 'blogRef'
+        blogRef.get().then((doc) => {
+        if (doc.exists) { 
+          // If the document exists, update the HTML elements with the retrieved data
+          const data = doc.data();
+          document.getElementById('blogTitle').textContent = data.BlogName;
+          document.getElementById('blogDate').textContent = data.TimeStamp;
+          document.getElementById('blogImage').src = data.ImageURL;
+          document.getElementById('blogComment').textContent = data.ExpertComment;
+        } else {
+          // Handle case where the blog post doesn't exist
+          console.log("Blog post not found.");
+        }
+      }).catch((error) => {
+        console.log("Error getting blog post:", error);   // Handle errors that occur during the retrieval process
+      });
+
+      // Retrieve the contact form element by its ID
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", (e) => {
+          e.preventDefault(); // Prevent form submission
+
+          // Get the input values
+          const firstName = contactForm.elements["firstName"].value;
+          const lastName = contactForm.elements["lastName"].value;
+          const organizationName = contactForm.elements["organizationName"].value;
+          const jobTitle = contactForm.elements["jobTitle"].value;
+          const email = contactForm.elements["email"].value;
+
+          // Store the values in the Firestore collection
+          db.collection("users").add({
+            firstName: firstName,
+            lastName: lastName,
+            organizationName: organizationName,
+            jobTitle: jobTitle,
+            email: email
+          })
+          .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            // Reset the form after successful submission
+            contactForm.reset();
+          })
+          .catch((error) => {
+            console.error("Error adding document: ", error); //handle errors
+          });
+        });
+</script>
+</body>
+
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 chatbot">
+          <h2>Chat with us</h2>
+          <p>We're here to answer your questions and help you with anything you need.</p>
+          <button class="btn btn-chat">Start Chatting</button>
+        </div>
+        <div class="col-md-6 contact">
+          <h2>Contact Us</h2>
+          <p>Med-Di-Dia Limited: Galway Technology Centre,
+            <br>Mervue Business Park, Galway, Ireland
+          </p>
+          <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
+          <br>
+          <p>Get in touch with us on social media or send us an email.</p>
+  
+          <div class="socials">
+            <a href="https://twitter.com/MedDiDia">
+              <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
+            <a href="https://www.facebook.com/search/top?q=med-di-dia">
+              <img src="logo-facebook.svg" alt="Youtube" width="24" height="24" aria-label="Facebook" /></a>
+            <a href="https://www.instagram.com/">
+              <img src="logo-instagram.png" alt="Youtube" width="24" height="24" aria-label="Instagram" /></a>
+            <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true">
+              <img src="logo-linkedin.svg" alt="LinkedIn" width="24" height="24" aria-label="LinkedIn" /></a>
+            <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1">
+              <img src="logo-youtube.svg" alt="Youtube" width="24" height="24" aria-label="Youtube" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+</html>
