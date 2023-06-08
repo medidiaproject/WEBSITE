@@ -11,13 +11,30 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="style.css">
+ <style>
+    html, body {
+      height: 100%;
+    }
 
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1 0 auto;
+    }
+
+    footer {
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
 
-    <a class="navbar-brand" href="index.html"><img src="images\logo.png" alt="Logo"></a>
+    <a class="navbar-brand" href="index.html"><img src="logo.png" alt="Logo"></a>
     <ul class="menu">
       <li class="nav-item dropdown">
         <a href="index.html">Home</a>
@@ -165,7 +182,8 @@
             // Set the contents of the grid item
             gridItem.innerHTML = `
             <a href="expandblog.html?blogId=${doc.id}">${data.BlogName}</a>
-                <p>${data.TimeStamp}</p>
+            <div class="timestamp-container">
+                <p>${data.TimeStamp}</p></div>
                 <img src=${data.ImageURL} alt="Image not available">
             `;
             document.querySelector('.grid-container').appendChild(gridItem);

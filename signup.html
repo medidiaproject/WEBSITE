@@ -123,6 +123,7 @@
                                 .then(() => {
                                     // Data saved successfully!
                                     alert('Account registration successful');
+                                    window.location.href = 'login.html';
                                 })
                                 .catch((error) => {
                                     // The write failed...
@@ -149,36 +150,39 @@
 <!-- FOOTER -->
 <footer>
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 chatbot">
-          <h2>Chat with us</h2>
-          <p>We're here to answer your questions and help you with anything you need.</p>
-          <button class="btn btn-chat">Start Chatting</button>
+        <div class="row">
+            <div class="col-md-6 chatbot">
+                <h2>Chat with us</h2>
+                <p>We're here to answer your questions and help you with anything you need.</p>
+                <button class="btn btn-chat">Start Chatting</button>
+            </div>
+            <div class="col-md-6 contact">
+                <h2>Contact Us</h2>
+                <p>Med-Di-Dia Limited: Galway Technology Centre,
+                    <br>Mervue Business Park, Galway, Ireland
+                </p>
+                <p>Tel: +353 (0)91-704804 | Email: mdd@mddltd.com</p>
+                <br>
+                <p>Get in touch with us on social media or send us an email.</p>
+
+                <div class="socials">
+                    <a href="https://twitter.com/MedDiDia"><img src="images/logo-twitter.svg" alt="Twitter" width="24"
+                            height="24" aria-label="Twitter" /></a>
+                    <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true"><img
+                            src="images/logo-linkedin.svg" alt="LinkedIn" width="24" height="24"
+                            aria-label="LinkedIn" /></a>
+                    <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1"><img
+                            src="images/logo-youtube.svg" alt="Youtube" width="24" height="24"
+                            aria-label="Youtube" /></a>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 contact">
-          <h2>Contact Us</h2>
-          <p>Med-Di-Dia Limited: Galway Technology Centre,
-            <br>Mervue Business Park, Galway, Ireland
-          </p>
-          <p>Tel: <a href="tel:+35391704804">+353 (0)91-704804</a> | Email: <a href="mailto:mdd@mddltd.com">mdd@mddltd.com</a></p>
-          <br>
-          <p>Get in touch with us on social media or send us an email.</p>
-  
-          <div class="socials">
-            <a href="https://twitter.com/MedDiDia">
-              <img src="logo-twitter.svg" alt="Twitter" width="24" height="24" aria-label="Twitter" /></a>
-            <a href="https://www.facebook.com/search/top?q=med-di-dia">
-              <img src="logo-facebook.svg" alt="Youtube" width="24" height="24" aria-label="Facebook" /></a>
-            <a href="https://www.instagram.com/">
-              <img src="logo-instagram.png" alt="Youtube" width="24" height="24" aria-label="Instagram" /></a>
-            <a href="https://www.linkedin.com/company/med-di-dia-ltd/?viewAsMember=true">
-              <img src="logo-linkedin.svg" alt="LinkedIn" width="24" height="24" aria-label="LinkedIn" /></a>
-            <a href="https://www.youtube.com/channel/UCJOJYZcNezk1DpOq0x3HrIw?cbrd=1&themeRefresh=1">
-              <img src="logo-youtube.svg" alt="Youtube" width="24" height="24" aria-label="Youtube" /></a>
-          </div>
-        </div>
-      </div>
+        <!--  <div class="row">
+        <div class="col-md-12 chatbot-icon">
+          <a href="#"><i class="fa fa-comments"></i></a>
+        </div> -->
     </div>
-  </footer>
+    </div>
+</footer>
 
 </html>
